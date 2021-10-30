@@ -5,7 +5,7 @@ use std::marker::PhantomData;
 #[derive(Default)]
 pub struct FrustumCullingPlugin<T>(PhantomData<T>);
 impl<T: 'static + Send + Sync + BoundingVolume> Plugin for FrustumCullingPlugin<T> {
-    fn build(&self, app: &mut AppBuilder) {
+    fn build(&self, app: &mut App) {
         app.add_system_to_stage(
             CoreStage::PostUpdate,
             frustum_culling::<T>
@@ -17,6 +17,7 @@ impl<T: 'static + Send + Sync + BoundingVolume> Plugin for FrustumCullingPlugin<
     }
 }
 
+#[derive(Component)]
 pub struct FrustumCulling;
 
 fn frustum_culling<T: 'static + BoundingVolume + Send + Sync>(

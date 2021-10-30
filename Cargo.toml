@@ -5,11 +5,20 @@ authors = ["Aevyrie Roessler <aevyrie@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-bevy = { version = "0.5", default-features = false, features = ["render"] }
-bevy_mod_bounding = "0.1"
+#bevy = { version = "0.5", default-features = false, features = ["render"] }
+bevy = { path="../bevy", default-features = false, features = ["render"] }
+#bevy_mod_bounding = "0.1"
+bevy_mod_bounding = { path = "../bevy_mod_bounding" }
 
 [dev-dependencies]
-bevy = { version = "0.5", default-features = false, features = [
+#bevy = { version = "0.5", default-features = false, features = [
+#    "bevy_wgpu",
+#    "bevy_winit",
+#    "bevy_gltf",
+#    "x11",
+#] }
+
+bevy = { path = "../bevy", default-features = false, features = [
     "bevy_wgpu",
     "bevy_winit",
     "bevy_gltf",
