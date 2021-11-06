@@ -20,10 +20,13 @@ impl<T: 'static + Send + Sync + BoundingVolume> Plugin for FrustumCullingPlugin<
 #[derive(Component)]
 pub struct FrustumCulling;
 
+#[derive(Component)]
+pub struct NeverCulled;
+
 fn frustum_culling<T: 'static + BoundingVolume + Send + Sync>(
     pool: Res<ComputeTaskPool>,
     camera_query: Query<(&Camera, &GlobalTransform), With<FrustumCulling>>,
-    mut bound_vol_query: Query<(&T, &GlobalTransform, &mut Visible)>,
+    mut bound_vol_query: Query<(&T, &GlobalTransform, &mut Visible), Without<NeverCulled>>,
 ) {
     // TODO: only compute frustum on camera change. Can store in a frustum component.
     for (camera, camera_position) in camera_query.iter() {
