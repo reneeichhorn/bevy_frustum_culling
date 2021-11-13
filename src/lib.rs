@@ -12,9 +12,15 @@ impl<T: 'static + Send + Sync + BoundingVolume> Plugin for FrustumCullingPlugin<
                 .system()
                 .after(BoundingSystem::UpdateBounds)
                 .after(bevy::transform::TransformSystem::TransformPropagate)
-                .before(bevy::render::RenderSystem::VisibleEntities),
+                .before(bevy::render::RenderSystem::VisibleEntities)
+                .label(CullingSystem::UpdateVisibility),
         );
     }
+}
+
+#[derive(Debug, Hash, PartialEq, Eq, Clone, SystemLabel)]
+pub enum CullingSystem {
+    UpdateVisibility,
 }
 
 #[derive(Component)]
